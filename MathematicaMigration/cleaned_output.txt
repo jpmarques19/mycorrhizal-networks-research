@@ -1,0 +1,194 @@
+In[7]:= datat = Import["plot1_data.csv", "Dataset", "HeaderLines"->1]
+
+In[81]:= Export["code_export.txt", NotebookGet[SelectedNotebook[]], "Text"]
+
+
+
+In[11]:= treeCoord = Drop[Import["Plot1_Tree_Data.csv"],1,1]
+
+
+In[12]:= treeLabels =  Drop[Import["Plot1_Tree_Data.csv"],1,{2,3}]
+
+
+In[13]:= Length[treeLabels]
+Length[treeCoord]
+
+
+
+In[15]:= treeLabelsC = Drop[treeLabels,-1]
+treeCoordC = Drop[treeCoord,-1]
+
+
+
+In[17]:= adj = Import["adjacency_matrix_plot1.csv"]
+
+
+In[18]:= adj  = Drop[adj,1,1]
+Dimensions[adj]
+
+
+
+In[20]:= adjC = Drop[adj,-1,-1]
+adjC
+
+
+
+In[22]:= adj
+
+
+In[23]:= MatrixPlot[%, ColorFunction->"Monochrome"]
+
+
+In[24]:= adj
+
+
+In[25]:= treeX = Drop[treeCoord,None,-1]
+
+
+In[26]:= treeY = Drop[treeCoord,None,1]
+
+
+In[27]:= Normalize[treeY,Norm]
+
+
+In[28]:= Normalize[treeCoord]
+
+TemplateBox[{"Normalize", "nlnmt2", "\"The first argument is not a number or a vector, or the second argument is not a norm function that always returns a non-negative real number for any numeric argument.\"", 2, 28, 3, 28224998828563474644, "Local"}, "MessageTemplate"]
+
+
+In[29]:= g=AdjacencyGraph[treeLabels,adj, VertexCoordinates->treeCoord, VertexLabels->All, ImageSize->Large, VertexSize->8, VertexStyle->RGBColor[65/255, 138/255, 88/255],EdgeStyle->Black]
+
+
+In[30]:= N[GlobalClusteringCoefficient[g]]
+
+
+In[31]:= gC = AdjacencyGraph[treeLabelsC,adjC, VertexCoordinates->treeCoordC, VertexLabels->All, ImageSize->Large, VertexSize->2, VertexStyle->RGBColor[65/255, 138/255, 88/255],EdgeStyle->Black]
+
+
+In[32]:= adjC
+
+
+In[33]:= CloudExport[DegreeCentrality[g], "csv"]
+CloudExport[EccentricityCentrality[g], "csv"]
+CloudExport[ClosenessCentrality[g],"csv"]
+CloudExport[EigenvectorCentrality[g],"csv"]
+
+
+
+
+
+In[37]:= CloudExport[EigenvectorCentrality[g],"csv"]
+
+
+In[38]:= 
+
+In[39]:= DegreeCentrality[gC]
+
+
+In[40]:= BetweennessCentrality[Graph[gC]]
+
+
+In[41]:= Length[{0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,44.,0.,23.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.}]
+
+
+In[42]:= gC
+
+
+In[43]:= 
+Part[VertexList[gC], Ordering[DegreeCentrality[gC], -1]]
+Part[VertexList[gC], Ordering[EccentricityCentrality[gC], -1]]
+Part[VertexList[gC], Ordering[ClosenessCentrality[gC], -1]]
+Part[VertexList[gC], Ordering[BetweennessCentrality[gC], -1]]
+Part[VertexList[gC], Ordering[EigenvectorCentrality[gC], -1]]
+
+
+
+
+
+
+In[48]:= EigenvectorCentrality[g]
+
+
+In[49]:= VertexDegree[g]
+
+
+In[50]:= CloudExport[GraphDistanceMatrix[g],"csv"]
+
+
+In[51]:= g
+
+
+In[52]:= N[MeanGraphDistance[gC]]
+N[GlobalClusteringCoefficient[gC]]
+
+
+
+
+In[54]:= Table[GraphDistance[]
+
+TemplateBox[{"Syntax", "bktmcp", "\"\:f7c1\:f7c9\:f7c8RowBox[{\"\\:f3b5\", RowBox[{\"RowBox\", \"[\", \"\", \"{\", \"\\:f3b5\\:f3b5Expression \\\"\\:f3b5\", \",\", \" StyleBox\", \"[\", \"TagBox\", \"[\", \"RowBox\", \"[\", \"\", \"{\", \"\\:f3b5Table\\:f3b5\", \",\", \" \\:f3b5\", \"[\", \"\\:f3b5\", \",\", \" RowBox\", \"[\", \"\", \"{\", \"\\:f3b5GraphDistance\\:f3b5\", \",\", \" \\:f3b5\", \"[\", \"\\:f3b5\", \",\", \" \\:f3b5\", \"]\", \"\\:f3b5\", \"}\", \"\", \"]\", \"\", \"}\", \"\", \"]\", \"\", \",\", \" Function\", \"[\", \"Short\", \"[\", \"Slot\", \"[\", \"1\", \"]\", \"\", \",\", \" 3\", \"]\", \"\", \"]\", \"\", \"]\", \"\", \",\", \" ShowStringCharacters -> False\", \"]\", \"\", \",\", \" \\:f3b5\\\" has no closing \\\"\\:f3b5\", \",\", \" StyleBox\", \"[\", \"TagBox\", \"[\", \"\\:f3b5\\\"\", \"]\", \"\\\"\\:f3b5\", \",\", \" Function\", \"[\", \"Short\", \"[\", \"Slot\", \"[\", \"1\", \"]\", \"\", \",\", \" 5\", \"]\", \"\", \"]\", \"\", \"]\", \"\", \",\", \" ShowStringCharacters -> False\", \"]\", \"\", \",\", \" \\:f3b5\\\"\\:f3b5\", \",\", \" StyleBox\", \"[\", \"TagBox\", \"[\", \"\\:f3b5\\\"\\\"\\:f3b5\", \",\", \" Function\", \"[\", \"Short\", \"[\", \"Slot\", \"[\", \"1\", \"]\", \"\", \",\", \" 5\", \"]\", \"\", \"]\", \"\", \"]\", \"\", \",\", \" ShowStringCharacters -> False\", \"]\", \"\", \",\", \" \\:f3b5.\\:f3b5\\:f3b5\", \"}\", \"\", \"]\", \"\"}], \"\\:f3b5\"}]\:f7c0\"", 2, 54, 4, 28224998828563474644, "Local"}, "MessageTemplate"]
+
+In[54]:= N[Mean[VertexDegree[g]]]
+
+
+In[55]:= VertexCount[%37]
+
+TemplateBox[{"VertexCount", "graph", "\"\:f7c1\:f7c9\:f7c8RowBox[{\"\\:f3b5\", RowBox[{\"RowBox\", \"[\", \"\", \"{\", \"\\:f3b5\\:f3b5A graph object is expected at position \\:f3b5\", \",\", \" StyleBox\", \"[\", \"TagBox\", \"[\", \"\\:f3b51\\:f3b5\", \",\", \" Function\", \"[\", \"Short\", \"[\", \"Slot\", \"[\", \"1\", \"]\", \"\", \",\", \" 5\", \"]\", \"\", \"]\", \"\", \"]\", \"\", \",\", \" ShowStringCharacters -> False\", \"]\", \"\", \",\", \" \\:f3b5 in \\:f3b5\", \",\", \" StyleBox\", \"[\", \"TagBox\", \"[\", \"RowBox\", \"[\", \"\", \"{\", \"\\:f3b5VertexCount\\:f3b5\", \",\", \" \\:f3b5\", \"[\", \"\\:f3b5\", \",\", \" InterpretationBox\", \"[\", \"RowBox\", \"[\", \"\", \"{\", \"\\:f3b5CloudObject\\:f3b5\", \",\", \" \\:f3b5\", \"[\", \"\\:f3b5\", \",\", \" TemplateBox\", \"[\", \"\", \"{\", \"\\:f3b5\\\"https://www.wolframcloud.com/obj/3fbfed72-bfc3-4dd2-97ce-76f0e190bf8a\\\"\\:f3b5\", \",\", \" \\:f3b5https://www.wolframcloud.com/obj/3fbfed72-bfc3-4dd2-97ce-76f0e190bf8a\\:f3b5\", \"}\", \"\", \",\", \" \\:f3b5HyperlinkURL\\:f3b5\", \"]\", \"\", \",\", \" \\:f3b5\", \"]\", \"\\:f3b5\", \"}\", \"\", \"]\", \"\", \",\", \" CloudObject\", \"[\", \"\\:f3b5https://www.wolframcloud.com/obj/3fbfed72-bfc3-4dd2-97ce-76f0e190bf8a\\:f3b5\", \"]\", \"\", \",\", \" SelectWithContents -> True\", \"]\", \"\", \",\", \" \\:f3b5\", \"]\", \"\\:f3b5\", \"}\", \"\", \"]\", \"\", \",\", \" Function\", \"[\", \"Short\", \"[\", \"Slot\", \"[\", \"1\", \"]\", \"\", \",\", \" 5\", \"]\", \"\", \"]\", \"\", \"]\", \"\", \",\", \" ShowStringCharacters -> False\", \"]\", \"\", \",\", \" \\:f3b5.\\:f3b5\\:f3b5\", \"}\", \"\", \"]\", \"\"}], \"\\:f3b5\"}]\:f7c0\"", 2, 55, 5, 28224998828563474644, "Local"}, "MessageTemplate"]
+
+
+In[56]:= EdgeCount[%35]
+
+TemplateBox[{"EdgeCount", "graph", "\"\:f7c1\:f7c9\:f7c8RowBox[{\"\\:f3b5\", RowBox[{\"RowBox\", \"[\", \"\", \"{\", \"\\:f3b5\\:f3b5A graph object is expected at position \\:f3b5\", \",\", \" StyleBox\", \"[\", \"TagBox\", \"[\", \"\\:f3b51\\:f3b5\", \",\", \" Function\", \"[\", \"Short\", \"[\", \"Slot\", \"[\", \"1\", \"]\", \"\", \",\", \" 5\", \"]\", \"\", \"]\", \"\", \"]\", \"\", \",\", \" ShowStringCharacters -> False\", \"]\", \"\", \",\", \" \\:f3b5 in \\:f3b5\", \",\", \" StyleBox\", \"[\", \"TagBox\", \"[\", \"RowBox\", \"[\", \"\", \"{\", \"\\:f3b5EdgeCount\\:f3b5\", \",\", \" \\:f3b5\", \"[\", \"\\:f3b5\", \",\", \" InterpretationBox\", \"[\", \"RowBox\", \"[\", \"\", \"{\", \"\\:f3b5CloudObject\\:f3b5\", \",\", \" \\:f3b5\", \"[\", \"\\:f3b5\", \",\", \" TemplateBox\", \"[\", \"\", \"{\", \"\\:f3b5\\\"https://www.wolframcloud.com/obj/e5f344bc-b8af-47e6-acdb-0a5ee12cddb3\\\"\\:f3b5\", \",\", \" \\:f3b5https://www.wolframcloud.com/obj/e5f344bc-b8af-47e6-acdb-0a5ee12cddb3\\:f3b5\", \"}\", \"\", \",\", \" \\:f3b5HyperlinkURL\\:f3b5\", \"]\", \"\", \",\", \" \\:f3b5\", \"]\", \"\\:f3b5\", \"}\", \"\", \"]\", \"\", \",\", \" CloudObject\", \"[\", \"\\:f3b5https://www.wolframcloud.com/obj/e5f344bc-b8af-47e6-acdb-0a5ee12cddb3\\:f3b5\", \"]\", \"\", \",\", \" SelectWithContents -> True\", \"]\", \"\", \",\", \" \\:f3b5\", \"]\", \"\\:f3b5\", \"}\", \"\", \"]\", \"\", \",\", \" Function\", \"[\", \"Short\", \"[\", \"Slot\", \"[\", \"1\", \"]\", \"\", \",\", \" 5\", \"]\", \"\", \"]\", \"\", \"]\", \"\", \",\", \" ShowStringCharacters -> False\", \"]\", \"\", \",\", \" \\:f3b5.\\:f3b5\\:f3b5\", \"}\", \"\", \"]\", \"\"}], \"\\:f3b5\"}]\:f7c0\"", 2, 56, 6, 28224998828563474644, "Local"}, "MessageTemplate"]
+
+
+In[57]:= 
+
+In[58]:= DiscretePlot[PDF[EmpiricalDistribution[VertexDegree[g]], x],{x, 0,25},  ExtentSize->2/3, PlotRange->{0,1}]
+
+
+In[59]:= 
+
+In[60]:= t = Values[Normal[datat[Select[#TreeID == "P1-T005"&],{"UTM_X","UTM_Y"}]]]
+
+
+In[61]:= Graph[nodes, {}, VertexLabels->"Name"]
+
+
+In[62]:= 
+
+In[63]:= t = Values[Normal[datat[Select[#TreeID == "P1-U003"&],{"UTM_X","UTM_Y"}]]]
+
+
+In[64]:= treeslbls ={"P1-T001","P1-T004","P1-T005","P1-T008","P1-T019","P1-T020","P1-T021","P1-T022","P1-T023","P1-T025","P1-T026","P1-T033","P1-T035","P1-T036","P1-T037","P1-T038","P1-T041","P1-T042","P1-T048","P1-T049","P1-T057","P1-T061","P1-T062", "P1-T079", "P1-T080", "P1-T081"}
+Length[treeslbls]
+
+
+
+In[66]:= CloudExport[trees, "CSV"]
+
+
+In[67]:= CloudExport[treeslbls, "CSV"]
+
+
+In[68]:= SystemOpen[DirectoryName[AbsoluteFileName["TreeXY.csv"]]]
+
+In[69]:= SystemOpen["TreeXY.csv"]
+
+In[70]:= 
+
+In[71]:= trees = {{674400,5.636235*10^6},{674399,5.636244*10^6},{674405.3,5.636242*10^6}, {674400,5.636248*10^6}, {674395.2,5636242.3},{674394.5,5636242.3},{674393.4,5636242.3},{674392.5,5636240.1},{674389.9,5636241.8},{674388.3,5.636245*10^6},{674387.3,5.636245*10^6},{674391,5.636226*10^6},{674386,5.636234*10^6},{674384,5.636239*10^6},{674386.5,5.636235*10^6},{674389.5,5.6362365*10^6},{674388,5.636234*10^6},{674383,5.636233*10^6},{674388,5.636230*10^6},{674390,5.636231*10^6},{674384.5,5.6362405*10^6},{674394.5,5.6362326*10^6},{674394.9,5.6362317*10^6},{674392.7,5.6362368*10^6},{674392.6,5.6362367*10^6},{674395.95,5.63623715*10^6}}
+Length[trees]
+
+
+
+In[73]:= treePlot = ListPlot[ Table[Labeled[trees[[i]],treeslbls[[i]]],{i,Length[trees]}], PlotRange->{{674380,674405},{5.636225*10^6,5.636250*10^6}}, ImageSize->900, PlotStyle->RGBColor[65/255, 138/255, 88/255]]
+
+
+In[74]:= 
+
+In[75]:= p1 = ListPlot[{datat[All,{"UTM_X","UTM_Y"}],t, Table[Labeled[trees[[i]],treeslbls[[i]]],{i,Length[trees]}]}, PlotRange->{{674380,674405},{5.636225*10^6,5.636250*10^6}}, ImageSize->900]
+
+
+In[76]:= 
+
+In[77]:= 
