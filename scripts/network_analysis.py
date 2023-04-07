@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
+import networkx as nx
 from itertools import combinations
+
 
 def get_unique_tree_connections(df):
     filtered_df = df[['GenetID', 'TreeID']]
@@ -29,6 +31,7 @@ def get_unique_tree_connections(df):
 
     return unique_pairs_list
 
+
 def create_adjacency_matrix(unique_tree_connections, unique_tree_genotypes):
     # Create a mapping of tree genotypes to indices for the adjacency matrix
     tree_genotype_to_index = {genotype: index for index, genotype in enumerate(unique_tree_genotypes)}
@@ -49,5 +52,21 @@ def create_adjacency_matrix(unique_tree_connections, unique_tree_genotypes):
 
     # Convert the adjacency matrix to a pandas DataFrame for better readability
     adjacency_df = pd.DataFrame(adjacency_matrix, index=unique_tree_genotypes, columns=unique_tree_genotypes)
-
+    
     return adjacency_df
+
+
+def degree_centrality(G):
+    return nx.degree_centrality(G)
+
+
+def closeness_centrality(G):
+    return nx.closeness_centrality(G)
+
+
+def betweenness_centrality(G):
+    return nx.betweenness_centrality(G, normalized=True, endpoints=False)
+
+
+def eigenvector_centrality(G):
+    return nx.eigenvector_centrality(G)
