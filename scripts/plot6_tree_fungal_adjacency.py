@@ -19,14 +19,9 @@ vis.plot_adjacency_matrix(adj_matrix, 'Plot 6')
 #%% Create graph from adj matrix
 
 # Create an empty graph
-G = nx.Graph()
+G = dh.build_graph_from_adjacency_matrix(adj_matrix)
 
-# Add the edges to the graph
-for i in range(adj_matrix.shape[0]):
-    for j in range(adj_matrix.shape[1]):
-        if adj_matrix[i, j] == 1:
-            G.add_edge(i, j)
-            
+
 #%% generate circular layout  from  graph
 # Create a figure and axes object
 fig, ax = plt.subplots(dpi=300)
