@@ -5,8 +5,16 @@ import data_handling as dh
 import network_analysis as na
 import visualization as vis
 #%%
-G = dh.create_graph_from_plot_data('../data/01_SampleData.csv', 6)
+G = dh.create_graph_from_plot_data('../data/01_SampleData.csv', 1)
 
+#%% remove isolated nodes
+G.remove_nodes_from(list(nx.isolates(G)))
+
+#%%
+num_nodes = G.number_of_nodes()
+num_edges = G.number_of_edges()
+print(f"Number of nodes: {num_nodes}")
+print(f"Number of edges: {num_edges}")
 #%%
 # Calculate additional network parameters
 avg_degree = na.average_degree(G)
