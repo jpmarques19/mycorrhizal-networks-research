@@ -5,27 +5,7 @@ import data_handling as dh
 import network_analysis as na
 import visualization as vis
 #%%
-df_plot1 = dh.read_and_preprocess_data('../data/01_SampleData.csv', 1)
-
-#%%
-unique_tree_connections = dh.get_unique_tree_connections(df_plot1)
-
-#%% Create adjancecy matrix
-unique_tree_genotypes = df_plot1['TreeID'].unique()
-adj_matrix = na.create_adjacency_matrix(unique_tree_connections, unique_tree_genotypes).values
-#%% plot adj matrix
-vis.plot_adjacency_matrix(adj_matrix, 'Plot 1')
-
-#%% Create graph from adj matrix
-
-# Create an empty graph
-G = nx.Graph()
-
-# Add the edges to the graph
-for i in range(adj_matrix.shape[0]):
-    for j in range(adj_matrix.shape[1]):
-        if adj_matrix[i, j] == 1:
-            G.add_edge(i, j)
+G = dh.create_graph_from_plot_data('../data/01_SampleData.csv', 6)
 
 #%%
 # Calculate additional network parameters

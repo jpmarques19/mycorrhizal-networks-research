@@ -1,28 +1,5 @@
 import networkx as nx
 
-def generate_random_network_from_graph(G):
-    """
-    Generates an Erdos-Renyi random graph with the same number of nodes and edge probability as a given graph.
-
-    Parameters:
-        G (networkx.Graph): The input graph for which an Erdos-Renyi random graph will be generated.
-
-    Returns:
-        random_graph (networkx.Graph): An Erdos-Renyi random graph with the same number of nodes and edge probability as the input graph.
-    """
-
-    # Get the number of nodes and edges in the input graph
-    n = G.number_of_nodes()
-    m = G.number_of_edges()
-
-    # Calculate the edge probability for the random graph
-    p = (2 * m) / (n * (n - 1))
-
-    # Generate the random graph using the calculated edge probability
-    random_graph = nx.erdos_renyi_graph(n, p, seed=None, directed=False)
-
-    return random_graph
-
 
 def average_degree(G):
     return sum(dict(G.degree()).values()) / len(G)

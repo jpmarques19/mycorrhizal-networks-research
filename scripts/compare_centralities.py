@@ -7,27 +7,8 @@ import network_analysis as na
 import visualization as vis
 
 #%%
-df_plot1 = dh.read_and_preprocess_data('../data/01_SampleData.csv', 1)
-df_plot6 = dh.read_and_preprocess_data('../data/01_SampleData.csv', 6)
-
-#%%
-unique_tree_connections1 = na.get_unique_tree_connections(df_plot1)
-unique_tree_connections6 = na.get_unique_tree_connections(df_plot6)
-
-#%% Create adjancecy matrix
-unique_tree_genotypes1 = df_plot1['TreeID'].unique()
-adj_matrix1 = na.create_adjacency_matrix(unique_tree_connections1, unique_tree_genotypes1).values
-unique_tree_genotypes6 = df_plot6['TreeID'].unique()
-adj_matrix6 = na.create_adjacency_matrix(unique_tree_connections6, unique_tree_genotypes6).values
-#%% plot adj matrix
-vis.plot_adjacency_matrix(adj_matrix1, 'Plot 1')
-vis.plot_adjacency_matrix(adj_matrix6, 'Plot 6')
-
-#%% Create graph from adj matrix
-
-# Create an empty graph
-G1 = dh.build_graph_from_adjacency_matrix(adj_matrix1)
-G6 = dh.build_graph_from_adjacency_matrix(adj_matrix6)
+G1 = dh.create_graph_from_plot_data('../data/01_SampleData.csv', 1)
+G6 = dh.create_graph_from_plot_data('../data/01_SampleData.csv', 6)
 
 #%% Calculate Centralities
 
