@@ -1,5 +1,26 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Plot the barplot with green tones. Every bar same color intensity
+def plot_barplot(df, title, y_label):
+    # Create a figure and axes object
+    fig, ax = plt.subplots(dpi=150)
+    
+    # Plot the barplot
+    sns.barplot(x=df.index, y='degree_centrality', data=df, ax=ax, color='green')
+    
+    # Set the title and labels
+    ax.set_title(title, fontsize=8)
+    ax.set_xlabel('Tree ID', fontsize=6)
+    ax.set_ylabel(y_label, fontsize=6)
+    
+    # Set the fontsize of the tick labels
+    ax.tick_params(axis='both', which='major', labelsize=4)
+    
+    # Show the plot
+    plt.show()
+    
 
 def plot_adjacency_matrix(adj_matrix, title):
     # Create a figure and axes object
