@@ -4,6 +4,29 @@ import networkx as nx
 from itertools import combinations
 from scipy.cluster.hierarchy import linkage, dendrogram
 
+def generate_random_network_from_graph(G):
+    """
+    Generates an Erdos-Renyi random graph with the same number of nodes and edge probability as a given graph.
+
+    Parameters:
+        G (networkx.Graph): The input graph for which an Erdos-Renyi random graph will be generated.
+
+    Returns:
+        random_graph (networkx.Graph): An Erdos-Renyi random graph with the same number of nodes and edge probability as the input graph.
+    """
+
+    # Get the number of nodes and edges in the input graph
+    n = G.number_of_nodes()
+    m = G.number_of_edges()
+
+    # Calculate the edge probability for the random graph
+    p = (2 * m) / (n * (n - 1))
+
+    # Generate the random graph using the calculated edge probability
+    random_graph = nx.erdos_renyi_graph(n, p, seed=None, directed=False)
+
+    return random_graph
+
 def create_graph_from_plot_data(filename, plot_number):
     sample_data = read_and_preprocess_data(filename, plot_number)
     adjacency_matrix = create_adjacency_matrix(sample_data)
@@ -71,6 +94,8 @@ def create_adjacency_matrix(plot_data):
 def build_graph_from_adjacency_matrix(matrix):
     G = nx.Graph(matrix)
     return G
+
+
 
 def hierachical_clustering(adjacency_matrix, method="single"):
     linkage_matrix = linkage(adjacency_matrix, method=method)
