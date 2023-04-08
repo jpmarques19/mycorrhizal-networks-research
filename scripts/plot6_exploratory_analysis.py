@@ -5,21 +5,31 @@ import data_handling as dh
 import network_analysis as na
 import visualization as vis
 #%%
-df_plot6 = dh.read_and_preprocess_data('../data/01_SampleData.csv', 6)
+G = dh.create_graph_from_plot_data('../data/01_SampleData.csv', 6)
 
 #%%
-unique_tree_connections = na.get_unique_tree_connections(df_plot6)
+num_nodes = G.number_of_nodes()
+num_edges = G.number_of_edges()
+print(f"Number of nodes: {num_nodes}")
+print(f"Number of edges: {num_edges}")
 
-#%% Create adjancecy matrix
-unique_tree_genotypes = df_plot6['TreeID'].unique()
-adj_matrix = na.create_adjacency_matrix(unique_tree_connections, unique_tree_genotypes).values
-#%% plot adj matrix
-vis.plot_adjacency_matrix(adj_matrix, 'Plot 6')
 
-#%% Create graph from adj matrix
+#%%
+# Calculate additional network parameters
+avg_degree = na.average_degree(G)
+deg_dist = na.degree_distribution(G)
+net_diameter = na.network_diameter(G)
+clus_coeff = na.clustering_coefficient(G)
+conn_comps = na.connected_components(G)
+net_density = na.network_density(G)
 
-# Create an empty graph
-G = dh.build_graph_from_adjacency_matrix(adj_matrix)
+# Print network parameters
+print(f"Average degree: {avg_degree}")
+print(f"Degree distribution: {deg_dist}")
+print(f"Network diameter: {net_diameter}")
+print(f"Clustering coefficient: {clus_coeff}")
+print(f"Connected components: {len(conn_comps)}")
+print(f"Network density: {net_density}")
 
 #%% Calculate Centralities
 

@@ -8,7 +8,7 @@ import visualization as vis
 df_plot1 = dh.read_and_preprocess_data('../data/01_SampleData.csv', 1)
 
 #%%
-unique_tree_connections = na.get_unique_tree_connections(df_plot1)
+unique_tree_connections = dh.get_unique_tree_connections(df_plot1)
 
 #%% Create adjancecy matrix
 unique_tree_genotypes = df_plot1['TreeID'].unique()
@@ -26,7 +26,25 @@ for i in range(adj_matrix.shape[0]):
     for j in range(adj_matrix.shape[1]):
         if adj_matrix[i, j] == 1:
             G.add_edge(i, j)
-            
+
+#%%
+# Calculate additional network parameters
+avg_degree = na.average_degree(G)
+deg_dist = na.degree_distribution(G)
+net_diameter = na.network_diameter(G)
+clus_coeff = na.clustering_coefficient(G)
+conn_comps = na.connected_components(G)
+net_density = na.network_density(G)
+
+# Print network parameters
+print(f"Average degree: {avg_degree}")
+print(f"Degree distribution: {deg_dist}")
+print(f"Network diameter: {net_diameter}")
+print(f"Clustering coefficient: {clus_coeff}")
+print(f"Connected components: {len(conn_comps)}")
+print(f"Network density: {net_density}")
+
+
 #%% generate circular layout  from  graph
 # Create a figure and axes object
 fig, ax = plt.subplots(dpi=300)
