@@ -78,6 +78,12 @@ ax2.set_ylabel('Degree Centrality', fontsize=6)
 ax1.tick_params(axis='both', which='major', labelsize=4)
 ax2.tick_params(axis='both', which='major', labelsize=4)
 plt.show()
+#%%
+print("Degree Centrality for Network 1:")
+print(df_degree1)
+
+print("\nDegree Centrality for Network 2:")
+print(df_degree2)
 
 
 
@@ -86,6 +92,13 @@ plt.show()
 df_closeness1 = pd.DataFrame.from_dict(closeness_centrality1, orient='index', columns=['closeness_centrality'])
 df_closeness2 = pd.DataFrame.from_dict(closeness_centrality2, orient='index', columns=['closeness_centrality'])
 
+#%%
+print("Closeness Centrality for Network 1:")
+print(df_closeness1)
+
+print("\nCloseness Centrality for Network 2:")
+print(df_closeness2)
+#%%
 # Compare Every Centrality with bar plots, side by side
 fig, (ax1, ax2) = plt.subplots(1, 2, dpi=150)
 sns.barplot(x=df_closeness1.index, y='closeness_centrality', data=df_closeness1, ax=ax1, color=bar_color)
@@ -104,7 +117,13 @@ plt.show()
 # Convert dictionaries to dataframes
 df_betweenness1 = pd.DataFrame.from_dict(betweenness_centrality1, orient='index', columns=['betweenness_centrality'])
 df_betweenness2 = pd.DataFrame.from_dict(betweenness_centrality2, orient='index', columns=['betweenness_centrality'])
+#%%
+print("Betweennees Centrality for Network 1:")
+print(df_betweenness1)
 
+print("\nBetweennees Centrality for Network 2:")
+print(df_betweenness2)
+#%%
 # Compare Every Centrality with bar plots, side by side
 fig, (ax1, ax2) = plt.subplots(1, 2, dpi=150)
 sns.barplot(x=df_betweenness1.index, y='betweenness_centrality', data=df_betweenness1, ax=ax1, color=bar_color)
@@ -124,6 +143,14 @@ plt.show()
 # Convert dictionaries to dataframes
 df_eigenvector1 = pd.DataFrame.from_dict(eigenvector_centrality1, orient='index', columns=['eigenvector_centrality'])
 df_eigenvector2 = pd.DataFrame.from_dict(eigenvector_centrality2, orient='index', columns=['eigenvector_centrality'])
+
+#%%
+print("Eigenvector Centrality for Network 1:")
+print(df_eigenvector1)
+
+print("\nEigenvector Centrality for Network 2:")
+print(df_eigenvector2)
+#%%
 
 # Compare Every Centrality with bar plots, side by side
 fig, (ax1, ax2) = plt.subplots(1, 2, dpi=150)

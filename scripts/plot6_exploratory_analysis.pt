@@ -21,7 +21,18 @@ vis.plot_adjacency_matrix(adj_matrix, 'Plot 6')
 # Create an empty graph
 G = dh.build_graph_from_adjacency_matrix(adj_matrix)
 
+#%% Calculate Centralities
 
+degree_cent = na.degree_centrality(G)
+closeness_cent = na.closeness_centrality(G)
+betweenness_cent = na.betweenness_centrality(G)
+eigenvector_cent = na.eigenvector_centrality(G)
+
+# Display the results (optional)
+print("Degree Centrality:", degree_cent)
+print("Closeness Centrality:", closeness_cent)
+print("Betweenness Centrality:", betweenness_cent)
+print("Eigenvector Centrality:", eigenvector_cent)
 #%% generate circular layout  from  graph
 # Create a figure and axes object
 fig, ax = plt.subplots(dpi=300)
