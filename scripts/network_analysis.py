@@ -1,4 +1,6 @@
+import numpy as np
 import networkx as nx
+import math
 
 def network_properties(G):
     """
@@ -65,3 +67,91 @@ def betweenness_centrality(G):
 
 def eigenvector_centrality(G):
     return nx.eigenvector_centrality(G)
+
+
+#%% community analysis
+
+def entropy(community_sizes, total_nodes):
+    # Account for isolated nodes
+    isolated_nodes = total_nodes - sum(community_sizes)
+    community_sizes += [1] * isolated_nodes
+
+    # Calculate proportions
+    proportions = np.array(community_sizes) / total_nodes
+    
+    # Calculate entropy
+    entropy = -np.sum(proportions * np.log(proportions))
+    return entropy
+
+def entropy_shared_nodes(community_sizes, total_nodes, communities):
+    # Create a dictionary to store the count of shared nodes
+    shared_node_count = {}
+
+    # Iterate through each community and count the shared nodes
+    for community in communities:
+        for node in community:
+            shared_node_count[node] = shared_node_count.get(node, 0) + 1
+
+    # Adjust community_sizes to account for shared nodes
+    adjusted_community_sizes = []
+    for community in communities:
+        adjusted_size = sum(1 / shared_node_count[node] for node in community)
+        adjusted_community_sizes.append(adjusted_size)
+
+    # Account for isolated nodes
+    isolated_nodes = total_nodes - sum(adjusted_community_sizes)
+    adjusted_community_sizes += [1] * int(isolated_nodes)
+
+    # Calculate proportions
+    proportions = np.array(adjusted_community_sizes) / total_nodes
+
+    # Calculate entropy
+    entropy = -np.sum(proportions * np.log(proportions))
+    return entropy
+
+
+def community_sizes_with_shared_nodes(community_list):
+    node_counts = {}
+    for community in community_list:
+        for node in community:
+            node_counts[node] = node_counts.get(node, 0) + 1
+    
+    community_sizes = []
+    for community in community_list:
+        size = sum(1 / node_counts[node] for node in community)
+        community_sizes.append(size)
+
+    return community_sizes
+
+def count_isolated_nodes(community_list, total_nodes):
+    all_nodes = set(range(total_nodes))
+    connected_nodes = set()
+    for community in community_list:
+        connected_nodes.update(community)
+    return len(all_nodes - connected_nodes)
+
+
+def coverage(G, communities):
+    intra_edges = sum(G.subgraph(c).number_of_edges() for c in communities)
+    total_edges = G.number_of_edges()
+    return intra_edges / total_edges
+
+def create_partition(G, communities):
+    partition = {}
+    for i, community in enumerate(communities):
+        for node in community:
+            partition[node] = i
+
+    # Handle isolated nodes
+    for node in G.nodes:
+        if node not in partition:
+            partition[node] = len(communities)
+            communities.append({node})
+
+    # Convert communities to a list of sets for compatibility with modularity function
+    communities = [set(community) for community in communities]
+    
+    return partition, communities
+
+
+
