@@ -22,11 +22,11 @@ def find_communities_with_clique_percolation(G, k):
     return communities
 
 #%%
-G = dh.create_graph_from_plot_data('../data/01_SampleData.csv', 5)
+G = dh.create_graph_from_plot_data('../data/01_SampleData.csv', 1)
 
 #%%
 
-k_values = [i for i in range(2,28)]  # You can test different k values based on your network properties
+k_values = [i for i in range(2,len(G.nodes)+1)]  # You can test different k values based on your network properties
 
 for k in k_values:
     print(f"Results for k={k}:")
