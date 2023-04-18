@@ -20,7 +20,7 @@ RG1.remove_nodes_from(list(nx.isolates(RG1)))
 RG6.remove_nodes_from(list(nx.isolates(RG6)))
 
 #%%
-vis.plot_circular_graphs(G1, G6, "G1", "G6")
+vis.plot_circular_graphs(G6, RG6, "Mycorrhizal Network $\mathcal{M}_B$", "Random E-R Network ")
 vis.plot_circular_graphs(RG1, RG6, "RG1", "RG6")
 
 

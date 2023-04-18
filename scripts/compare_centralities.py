@@ -10,6 +10,7 @@ import visualization as vis
 G1 = dh.create_graph_from_plot_data('../data/01_SampleData.csv', 1)
 G6 = dh.create_graph_from_plot_data('../data/01_SampleData.csv', 6)
 
+
 #%% Calculate Centralities
 
 # Degree centrality
