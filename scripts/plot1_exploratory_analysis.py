@@ -7,6 +7,11 @@ import visualization as vis
 #%%
 G = dh.create_graph_from_plot_data('../data/01_SampleData.csv', 1)
 
+sample_data = dh.read_and_preprocess_data('../data/01_SampleData.csv', 5)
+adjacency_matrix = dh.create_adjacency_matrix(sample_data)
+adjacency_matrix = dh.hierachical_clustering(adjacency_matrix, "average")
+vis.plot_adjacency_matrix(adjacency_matrix, "Reordered Adjacency Matrix $\mathcal{M}_B$")
+
 #%% remove isolated nodes
 G.remove_nodes_from(list(nx.isolates(G)))
 
