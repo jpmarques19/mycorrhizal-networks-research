@@ -22,15 +22,19 @@ def find_communities_with_clique_percolation(G, k):
     return communities
 
 #%%
-G = dh.create_graph_from_plot_data('../data/01_SampleData.csv', 6)
+G = dh.create_graph_from_plot_data('../data/01_SampleData.csv', 5)
 
 #%%
 
-k_values = [i for i in range(2,41)]  # You can test different k values based on your network properties
+k_values = [i for i in range(2,28)]  # You can test different k values based on your network properties
 
 for k in k_values:
     print(f"Results for k={k}:")
+    print("\n")
     communities = find_communities_with_clique_percolation(G, k)
+    community_sizes = [len(community) for community in communities]
+    total_nodes = sum(community_sizes)
+    print(na.entropy_shared_nodes(community_sizes, total_nodes, communities))
     print("\n")
 
 
@@ -55,7 +59,7 @@ def find_optimal_k(network, k_range):
 
     return optimal_k
 
-best_k = find_optimal_k(G, range(2,41))
+best_k = find_optimal_k(G, range(2,28))
 print("\n")
 print(f"Optimal k value: {best_k}")
 print("\n")
@@ -63,42 +67,51 @@ communities = find_communities_with_clique_percolation(G, best_k)
 print("\n")
 
 #%%
-from networkx.algorithms.community.quality import modularity
+import math
+import numpy as np
+import csv
 
-# Define the range of k values to test
-k_values = range(2, G.number_of_nodes())
+def find_shared_nodes(communities):
+    shared_nodes = 0
+    for i in range(len(communities)):
+        for j in range(i + 1, len(communities)):
+            shared_nodes += len(set(communities[i]).intersection(set(communities[j])))
+    return shared_nodes
 
-best_k = 2
-best_modularity = -1
-best_coverage = -1
-best_communities = None
+def find_optimal_k(network, k_range):
+    max_entropy = -np.inf
+    optimal_k = None
 
+    for k in k_range:
+        communities = find_communities_with_clique_percolation(network, k)
+        community_sizes = [len(community) for community in communities]
+        total_nodes = sum(community_sizes)
+        entropy = na.entropy(community_sizes, total_nodes)
+        entropy = na.entropy_shared_nodes(community_sizes, total_nodes, communities)
 
-# Usage:
+        if entropy > max_entropy:
+            max_entropy = entropy
+            optimal_k = k
 
+    return optimal_k
 
-
-for k in k_values:
-    communities = find_communities_with_clique_percolation(G, k) # Use your implementation of the clique percolation algorithm
-    partition, valid_communities = na.create_partition(G, communities)
-    curr_modularity = modularity(G, valid_communities)
-    curr_coverage = na.coverage(G, communities)
-    
-    # You can use modularity, coverage, or a combination of both to choose the best k
-    if curr_modularity > best_modularity:
-    #if curr_coverage > best_coverage:
-        best_k = k
-        best_modularity = curr_modularity
-        best_coverage = curr_coverage
-        best_communities = communities
-
-print(f"Best k: {best_k}")
-print(f"Best modularity: {best_modularity}")
-print(f"Best coverage: {best_coverage}")
-print(f"Best communities: {best_communities}")
-
+best_k = find_optimal_k(G, range(2,14))
 print("\n")
 print(f"Optimal k value: {best_k}")
 print("\n")
 communities = find_communities_with_clique_percolation(G, best_k)
 print("\n")
+
+# Export to CSV
+with open('community_stats_a.csv', mode='w', newline='') as csv_file:
+    fieldnames = ['k', 'N', 'Size of communities', 'Density of communities', 'Shared nodes', 'Entropy']
+    writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
+
+    writer.writeheader()
+    for k in range(2, 14):
+        communities = find_communities_with_clique_percolation(G, k)
+        community_sizes = [len(community) for community in communities]
+        density_values = [nx.density(G.subgraph(community)) for community in communities]
+        shared_nodes = find_shared_nodes(communities)
+        entropy = na.entropy_shared_nodes(community_sizes, sum(community_sizes), communities)
+        writer.writerow({'k': k, 'N': len(communities), 'Size of communities': community_sizes, 'Density of communities': density_values, 'Shared nodes': shared_nodes, 'Entropy': entropy})
