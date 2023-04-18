@@ -1,6 +1,7 @@
 import numpy as np
 import networkx as nx
 import math
+from networkx.algorithms.community import k_clique_communities
 
 def network_properties(G):
     """
@@ -153,5 +154,49 @@ def create_partition(G, communities):
     
     return partition, communities
 
+#%%
+
+def find_communities_with_clique_percolation(G, k):
+    communities = list(k_clique_communities(G, k))
+    num_communities = len(communities)
+    print(f"Number of communities for k={k}: {num_communities}")
+    
+    for i, community in enumerate(communities):
+        print(f"Community {i + 1}: {community}")
+        subgraph = G.subgraph(community)
+        size = len(subgraph.nodes())
+        density = nx.density(subgraph)
+        print(f"Community {i+1}: size={size}, density={density}")
+        
+    return communities
+
+def get_k_cliques_in_communities(G, communities, k):
+    k_cliques = nx.find_cliques(G)
+    k_cliques = [clique for clique in k_cliques if len(clique) == k]
+    
+    community_k_cliques = []
+    for community in communities:
+        community_cliques = []
+        for clique in k_cliques:
+            if set(clique).issubset(community):
+                community_cliques.append(clique)
+        community_k_cliques.append(community_cliques)
+    
+    return community_k_cliques
 
 
+def find_optimal_k(network, k_range):
+    max_entropy = -np.inf
+    optimal_k = None
+
+    for k in k_range:
+        communities = find_communities_with_clique_percolation(network, k)
+        community_sizes = [len(community) for community in communities]
+        total_nodes = sum(community_sizes)
+        entropy = entropy_shared_nodes(community_sizes, total_nodes, communities)
+
+        if entropy > max_entropy:
+            max_entropy = entropy
+            optimal_k = k
+
+    return optimal_k
