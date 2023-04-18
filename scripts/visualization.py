@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import networkx as nx
+import itertools
 
 # Plot the barplot with green tones. Every bar same color intensity
 def plot_barplot(df, title, y_label):
@@ -44,7 +45,7 @@ def plot_circular_graphs(G1, G2, title1, title2):
     font_weight = 'bold'
 
     # Create the figure and axes
-    fig, axes = plt.subplots(ncols=2, figsize=(10, 5))
+    fig, axes = plt.subplots(dpi=150, ncols=2, figsize=(10, 5))
 
     # Plot the first ER random network
     nx.draw_networkx_nodes(G1, pos1, node_color=node_color, edgecolors=node_edge_color, node_size=node_size, alpha=node_alpha, ax=axes[0])
@@ -106,3 +107,9 @@ def plot_degree_distributions(G_exp, G_rand, exp_label, rand_label):
     ax.set_title("Degree Distribution")
     ax.legend()
     plt.show()
+
+
+
+
+
+
