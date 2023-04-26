@@ -1,0 +1,17 @@
+Scope of the Article:
+
+The purpose of this article is to explore the performance of community detection methods in the context of Mycorrhizal Networks (MN's). The target audience consists of researchers, professionals, and students with a highly technical background in advanced mathematics and biology. The language used will be high-level math, and the article will provide necessary context from a biology and ecology perspective to ensure a comprehensive understanding of the topic.
+
+Given the focus on establishing a theoretical framework, the article will not delve too deeply into numerical analysis or provide extensive descriptive results. Instead, the emphasis will be on reviewing and evaluating existing community detection methods, identifying ground truth communities within real-world MN's, and comparing the performance of these methods in detecting communities.
+
+Visual aids, such as drawings, tables, and graphs, will be used to support the study and enhance the understanding of complex concepts and findings.
+
+The article will address the following objectives:
+
+1. Review and evaluate existing community detection methods for their suitability in the context of MN's (Mycorrhizal Networks).
+2. Identify ground truth communities within selected real-world MN's.
+3. Apply community detection methods to the selected MN's and compare the detected communities with the ground truth communities.
+4. Quantify the performance of community detection methods using appropriate evaluation metrics.
+5. Investigate the factors affecting the performance of community detection methods in the context of MN's, such as network size, density, and interlayer connections.
+
+By addressing these objectives and adhering to the defined scope, the article will contribute valuable insights into community detection methods for Mycorrhizal Networks, and provide a solid foundation for future research in this area.

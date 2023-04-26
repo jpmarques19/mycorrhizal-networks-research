@@ -1,0 +1,14 @@
+Research Topic: Overlapping community Structure in MN's
+Focus point: Compare ground truth comunities with detected communities
+Research question: How will community detection methods perform in the context of MN's?
+
+Based on your research topic, focus point, and research question, here are some suggested objectives and an appropriate research design:
+
+Objectives:
+
+1. To review and evaluate existing community detection methods for their suitability in the context of MN's (Multilayer Networks).
+2. To identify ground truth communities within selected real-world MN's.
+3. To apply community detection methods to the selected MN's and compare the detected communities with the ground truth communities.
+4. To quantify the performance of community detection methods using appropriate evaluation metrics.
+5. To investigate the factors affecting the performance of community detection methods in the context of MN's, such as network size, density, and interlayer connections.
+
